@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block title %}Documentation - Solar Desalination Simulator{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="bg-white shadow rounded-lg p-6">
+        <!-- Documentation Header -->
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl font-bold text-gray-900 mb-8">Documentation</h1>
+
+            <!-- Quick Links -->
+            <div class="bg-gray-50 rounded-lg p-6 mb-8">
+                <h2 class="text-lg font-medium text-gray-900 mb-4">Quick Links</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <a href="#getting-started" class="text-indigo-600 hover:text-indigo-800">Getting Started</a>
+                    <a href="#input-parameters" class="text-indigo-600 hover:text-indigo-800">Input Parameters</a>
+                    <a href="#calculations" class="text-indigo-600 hover:text-indigo-800">Calculations</a>
+                    <a href="#results" class="text-indigo-600 hover:text-indigo-800">Results</a>
+                    <a href="#troubleshooting" class="text-indigo-600 hover:text-indigo-800">Troubleshooting</a>
+                    <a href="#api" class="text-indigo-600 hover:text-indigo-800">API Reference</a>
+                </div>
+            </div>
+
+            <!-- Getting Started -->
+            <section id="getting-started" class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Getting Started</h2>
+                <p class="text-gray-600 mb-4">
+                    The Solar Desalination Simulator is a powerful tool for analyzing and optimizing solar desalination systems.
+                    Follow these steps to get started:
+                </p>
+                <ol class="list-decimal list-inside space-y-2 text-gray-600">
+                    <li>Navigate to the Simulator page</li>
+                    <li>Enter your weight measurements at 5-minute intervals</li>
+                    <li>Input corresponding temperature readings</li>
+                    <li>Select your absorber shape and specify dimensions</li>
+                    <li>Adjust the factor value if needed</li>
+                    <li>Click "Run Simulation" to see your results</li>
+                </ol>
+            </section>
+
+            <!-- Input Parameters -->
+            <section id="input-parameters" class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Input Parameters</h2>
+                
+                <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-3">Weight Measurements</h3>
+                <p class="text-gray-600 mb-4">
+                    Enter weight values in grams (g) at 5-minute intervals. The system expects 13 measurements,
+                    starting from time 0 to 60 minutes. Values should be decreasing over time.
+                </p>
+
+                <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-3">Temperature Records</h3>
+                <p class="text-gray-600 mb-4">
+                    Input temperature readings in Celsius (°C) corresponding to each time interval.
+                    Values should be between 0°C and 100°C.
+                </p>
+
+                <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-3">Absorber Parameters</h3>
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h4 class="font-medium text-gray-900 mb-2">Available Shapes:</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li>Circle (requires radius)</li>
+                        <li>Square (requires side length)</li>
+                        <li>Rectangle (requires length and width)</li>
+                        <li>Triangle (requires base and height)</li>
+                    </ul>
+                    <p class="text-gray-600 mt-4">
+                        All dimensions should be entered in centimeters (cm).
+                    </p>
+                </div>
+            </section>
+
+            <!-- Calculations -->
+            <section id="calculations" class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Calculations</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Mass Loss</h3>
+                        <p class="text-gray-600">
+                            Mass loss is calculated as the difference between initial and current weight measurements.
+                            Results are provided in various units: grams (g), kilograms (kg), and kg/m².
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Mass Flux</h3>
+                        <p class="text-gray-600">
+                            Mass flux (g/m²·s) is calculated using the total mass loss per unit area over the experiment duration.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Efficiency</h3>
+                        <p class="text-gray-600">
+                            Efficiency calculation considers:
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600 mt-2">
+                            <li>Specific heat capacity of water (4.18 J/g°C)</li>
+                            <li>Latent heat of vaporization (2400 J/g)</li>
+                            <li>Temperature difference between surface and bulk</li>
+                            <li>Mass flux</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results -->
+            <section id="results" class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Results</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Visualization</h3>
+                        <p class="text-gray-600">
+                            Results are presented through:
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600 mt-2">
+                            <li>Interactive plots showing mass loss over time</li>
+                            <li>Mass loss per square meter visualization</li>
+                            <li>Comprehensive results table with all measurements</li>
+                            <li>Efficiency and mass flux indicators</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Data Export</h3>
+                        <p class="text-gray-600">
+                            All results can be exported for further analysis or reporting purposes.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Troubleshooting -->
+            <section id="troubleshooting" class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Troubleshooting</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Common Issues</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-medium text-gray-900">Invalid Input Data</h4>
+                                <p class="text-gray-600">
+                                    Ensure all fields contain valid numeric values and follow the specified ranges.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-medium text-gray-900">Dimension Errors</h4>
+                                <p class="text-gray-600">
+                                    Verify that all required dimensions are provided for the selected absorber shape.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-medium text-gray-900">Calculation Errors</h4>
+                                <p class="text-gray-600">
+                                    Check that weight values are decreasing over time and temperatures are within reasonable ranges.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- API Reference -->
+            <section id="api" class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">API Reference</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Endpoints</h3>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-medium text-gray-900">POST /simulate</h4>
+                                <p class="text-gray-600 mb-2">
+                                    Run a simulation with provided parameters.
+                                </p>
+                                <pre class="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
+{
+    "weights": [float],      // Array of 13 weight measurements
+    "temperatures": [float], // Array of 13 temperature readings
+    "absorberShape": string, // "circle", "square", "rectangle", "triangle"
+    "dimension1": float,     // First dimension in cm
+    "dimension2": float,     // Second dimension in cm (if applicable)
+    "factor": float         // Adjustment factor
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %} 

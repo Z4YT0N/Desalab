@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Solar Desalination Pro{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        /* Page Transitions */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #4f46e5 0%, #0090f3 100%);
+            z-index: 9999;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+            pointer-events: none;
+        }
+
+        .page-transition.active {
+            transform: translateY(0);
+        }
+
+        .page-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .page-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation */
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #6B7280;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4f46e5;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #4f46e5;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #4f46e5;
+        }
+        
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #6B7280;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .mobile-nav-link:hover {
+            color: #4f46e5;
+            background-color: #F3F4F6;
+            border-left-color: #4f46e5;
+            padding-left: 1.5rem;
+        }
+        
+        .mobile-nav-link.active {
+            color: #4f46e5;
+            background-color: #F3F4F6;
+            border-left-color: #4f46e5;
+        }
+
+        /* Contact Button */
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: white;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        /* Logo */
+        .logo-container {
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        #mobile-menu.open {
+            max-height: 400px;
+        }
+
+        /* Footer Links */
+        .footer-link {
+            color: #6B7280;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #4f46e5;
+            transform: translateY(-2px);
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-50">
+    <!-- Page Transition -->
+    <div class="page-transition"></div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo and Primary Nav -->
+                <div class="flex">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0 flex items-center logo-container">
+                        <a href="/" class="flex items-center space-x-2" data-transition>
+                                <img src="{{ url_for('static', filename='image/logo.png') }}" alt="Logo" style="padding: 5px;max-width: 200px;" class="text-3xl">
+                        </a>
+                    </div>
+                    <!-- Primary Nav -->
+                    <div class="hidden sm:ml-8 sm:flex sm:space-x-8">
+                        <a href="/" class="nav-link {{ 'active' if request.endpoint == 'index' }}" data-transition>
+                            Home
+                        </a>
+                        <a href="/simulator" class="nav-link {{ 'active' if request.endpoint == 'simulator_page' }}" data-transition>
+                            Simulator
+                        </a>
+                        <a href="/about" class="nav-link {{ 'active' if request.endpoint == 'about' }}" data-transition>
+                            About
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Secondary Nav -->
+                <div class="hidden sm:flex sm:items-center sm:space-x-4">
+                    <a href="/documentation" class="contact-button bg-indigo-600 hover:bg-indigo-700" data-transition>
+                        Documentation
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="flex items-center sm:hidden">
+                    <button type="button" onclick="toggleMobileMenu()" class="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                        <span class="sr-only">Open main menu</span>
+                        <svg id="menu-closed-icon" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg id="menu-open-icon" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="/" class="mobile-nav-link {{ 'active' if request.endpoint == 'index' }}" data-transition>
+                    Home
+                </a>
+                <a href="/simulator" class="mobile-nav-link {{ 'active' if request.endpoint == 'simulator_page' }}" data-transition>
+                    Simulator
+                </a>
+                <a href="/documentation" class="mobile-nav-link {{ 'active' if request.endpoint == 'documentation' }}" data-transition>
+                    Documentation
+                </a>
+                <a href="/presentation" class="mobile-nav-link {{ 'active' if request.endpoint == 'presentation' }}" data-transition>
+                    Presentation
+                </a>
+                <a href="/about" class="mobile-nav-link {{ 'active' if request.endpoint == 'about' }}" data-transition>
+                    About
+                </a>
+                <a href="/contact" class="mobile-nav-link {{ 'active' if request.endpoint == 'contact' }}" data-transition>
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="page-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-12 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <div class="md:flex md:items-center md:justify-between">
+                <!-- Logo and Copyright -->
+                <div class="flex items-center space-x-2 logo-container">
+                    <a href="/" class="flex items-center space-x-2" data-transition>
+                        <span class="text-xl font-bold bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent">DesaLab</span>
+                    </a>
+                    <span class="text-gray-500 ml-4">Made with ❤️ by CCE Students</span>
+                </div>
+
+                <!-- Quick Links -->
+                <nav class="mt-4 md:mt-0">
+                    <ul class="flex space-x-8">
+                        <li>
+                            <a href="/documentation" class="footer-link" data-transition>
+                                Documentation
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/about" class="footer-link" data-transition>
+                                About
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Page Transitions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show initial content
+            const pageContent = document.querySelector('.page-content');
+            setTimeout(() => {
+                pageContent.classList.add('visible');
+            }, 100);
+
+            // Handle link transitions
+            document.querySelectorAll('a[data-transition]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = this.href;
+                    
+                    // Start transition
+                    const transition = document.querySelector('.page-transition');
+                    transition.classList.add('active');
+                    
+                    // Hide current content
+                    pageContent.style.opacity = '0';
+                    pageContent.style.transform = 'translateY(20px)';
+                    
+                    // Navigate after transition
+                    setTimeout(() => {
+                        window.location.href = target;
+                    }, 500);
+                });
+            });
+        });
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuClosedIcon = document.getElementById('menu-closed-icon');
+            const menuOpenIcon = document.getElementById('menu-open-icon');
+            
+            if (!mobileMenu.classList.contains('open')) {
+                // Show menu
+                mobileMenu.classList.add('open');
+                menuClosedIcon.classList.add('hidden');
+                menuOpenIcon.classList.remove('hidden');
+            } else {
+                // Hide menu
+                mobileMenu.classList.remove('open');
+                menuClosedIcon.classList.remove('hidden');
+                menuOpenIcon.classList.add('hidden');
+            }
+        }
+    </script>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

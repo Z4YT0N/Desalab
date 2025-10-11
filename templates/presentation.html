@@ -1,0 +1,590 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
+    <!-- Navigation Controls -->
+    <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-4 bg-white/80 backdrop-blur-sm rounded-full shadow-lg p-2 z-50">
+        <button onclick="previousSlide()" class="p-2 rounded-full hover:bg-gray-100 transition-all">
+            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <span id="slideCounter" class="flex items-center px-4 font-medium text-gray-700">1/15</span>
+        <button onclick="nextSlide()" class="p-2 rounded-full hover:bg-gray-100 transition-all">
+            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Slides Container -->
+    <div class="max-w-5xl mx-auto space-y-8">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12 text-center">
+                <h1 class="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-transparent bg-clip-text">
+                    Solar Desalination System
+                </h1>
+                <p class="text-xl text-gray-600 mb-8">Advanced Water Purification Technology</p>
+                <div class="flex justify-center">
+                    <img src="{{ url_for('static', filename='images/solar-system.png') }}" alt="Solar System" class="w-64 h-64 object-contain">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Problem Statement -->
+        <div class="slide hidden">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">Global Water Crisis</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-6 h-6 text-red-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                            <p class="text-lg text-gray-700">2.2 billion people lack access to safe drinking water</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-6 h-6 text-red-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                            <p class="text-lg text-gray-700">Water scarcity affects 40% of the global population</p>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-800">Key Challenges</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li>• Limited freshwater resources</li>
+                            <li>• Rising energy costs</li>
+                            <li>• Environmental impact</li>
+                            <li>• Infrastructure limitations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Our Solution -->
+        <div class="slide hidden">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">Solar Desalination: The Solution</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-purple-800">Key Features</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li>• Solar-powered operation</li>
+                            <li>• Zero carbon emissions</li>
+                            <li>• Low maintenance costs</li>
+                            <li>• Modular design</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-6 h-6 text-green-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <p class="text-lg text-gray-700">Sustainable and renewable energy source</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-6 h-6 text-green-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <p class="text-lg text-gray-700">Cost-effective water purification</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Technology Overview -->
+        <div class="slide hidden">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">Technology Overview</h2>
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 font-bold">1</div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Solar Collection</h3>
+                            <p class="text-gray-600">Advanced solar absorbers capture maximum sunlight</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">2</div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Water Evaporation</h3>
+                            <p class="text-gray-600">Efficient thermal energy conversion for water evaporation</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-bold">3</div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Condensation</h3>
+                            <p class="text-gray-600">Advanced condensation system for pure water collection</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: System Components -->
+        <div class="slide hidden">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">System Components</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-purple-800">Solar Absorber</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• High absorption rate</li>
+                            <li>• Multiple shape options</li>
+                            <li>• Durable materials</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-blue-800">Water System</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Efficient distribution</li>
+                            <li>• Flow control</li>
+                            <li>• Collection basin</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-green-800">Control System</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Temperature sensors</li>
+                            <li>• Flow monitoring</li>
+                            <li>• Data logging</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Performance Metrics -->
+        <div class="slide hidden">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">Performance Metrics</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 text-center">
+                            <h3 class="text-lg font-semibold mb-2 text-purple-800">Water Production</h3>
+                            <p class="text-4xl font-bold text-purple-600">5-7 L/m²</p>
+                            <p class="text-sm text-gray-600 mt-2">Per Day</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6 text-center">
+                            <h3 class="text-lg font-semibold mb-2 text-blue-800">Energy Efficiency</h3>
+                            <p class="text-4xl font-bold text-blue-600">85%</p>
+                            <p class="text-sm text-gray-600 mt-2">Solar Energy Utilization</p>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Key Indicators</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span class="text-gray-700">High water quality (99.9% pure)</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span class="text-gray-700">Low maintenance requirements</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span class="text-gray-700">24/7 operation capability</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Environmental Impact -->
+        <div class="slide hidden">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">Environmental Impact</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-6 h-6 text-green-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Zero Carbon Emissions</h3>
+                                <p class="text-gray-600">100% solar-powered operation</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-6 h-6 text-green-500 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">No Chemical Usage</h3>
+                                <p class="text-gray-600">Pure physical process</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-green-800">Annual Impact</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li>• CO₂ reduction: 5 tons/year</li>
+                            <li>• Water production: 2000+ L/year</li>
+                            <li>• Energy savings: 70%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Cost Analysis -->
+        <div class="slide hidden">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">Cost Analysis</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-purple-800">Initial Investment</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li>• System cost: $2000-3000</li>
+                            <li>• Installation: $500-1000</li>
+                            <li>• Training: Included</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-800">Operating Costs</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li>• Maintenance: $100/year</li>
+                            <li>• Energy: $0 (Solar)</li>
+                            <li>• ROI: 2-3 years</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Implementation Process -->
+        <div class="slide hidden">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">Implementation Process</h2>
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 font-bold">1</div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Site Assessment</h3>
+                            <p class="text-gray-600">Location analysis and system sizing</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">2</div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Installation</h3>
+                            <p class="text-gray-600">Professional setup and testing</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-bold">3</div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Training</h3>
+                            <p class="text-gray-600">Operator training and documentation</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold">4</div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">Monitoring</h3>
+                            <p class="text-gray-600">Ongoing support and optimization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Contact -->
+        <div class="slide hidden">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12 text-center">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">Get Started Today</h2>
+                <p class="text-xl text-gray-600 mb-8">Transform your water supply with sustainable solar desalination</p>
+                <div class="flex flex-col items-center space-y-4">
+                    <a href="/contact" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:shadow-lg transition-all">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        Contact Us
+                    </a>
+                    <p class="text-gray-600">Email: contact@solardesalination.com</p>
+                    <p class="text-gray-600">Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Technical Deep Dive -->
+        <div class="slide hidden">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">Technical Deep Dive</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <div class="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl p-6">
+                            <h3 class="text-xl font-semibold mb-4 text-indigo-800">Heat Transfer</h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li>• Thermal conductivity: 0.58 W/mK</li>
+                                <li>• Heat capacity: 4.18 kJ/kgK</li>
+                                <li>• Operating temperature: 65-85°C</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6">
+                            <h3 class="text-xl font-semibold mb-4 text-purple-800">Solar Absorption</h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li>• Absorption rate: 95%</li>
+                                <li>• Spectral range: 280-2500nm</li>
+                                <li>• Peak efficiency: 82%</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Performance Equations</h3>
+                        <div class="space-y-4 text-gray-700">
+                            <div class="p-3 bg-white rounded-lg">
+                                <p class="font-mono">η = (m̄ × hfg) / (I × A)</p>
+                                <p class="text-sm mt-1">Overall efficiency equation</p>
+                            </div>
+                            <div class="p-3 bg-white rounded-lg">
+                                <p class="font-mono">Q = m × cp × ΔT</p>
+                                <p class="text-sm mt-1">Heat transfer rate</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Innovation Features -->
+        <div class="slide hidden">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">Innovation Features</h2>
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="relative group">
+                        <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl opacity-75 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="relative p-6 text-white">
+                            <h3 class="text-xl font-semibold mb-4">Smart Controls</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li>• AI-powered optimization</li>
+                                <li>• Real-time monitoring</li>
+                                <li>• Predictive maintenance</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <div class="absolute inset-0 bg-gradient-to-r from-pink-600 to-red-600 rounded-xl opacity-75 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="relative p-6 text-white">
+                            <h3 class="text-xl font-semibold mb-4">Advanced Materials</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li>• Nano-coated surfaces</li>
+                                <li>• Self-cleaning glass</li>
+                                <li>• Anti-corrosion coating</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <div class="absolute inset-0 bg-gradient-to-r from-green-600 to-teal-600 rounded-xl opacity-75 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="relative p-6 text-white">
+                            <h3 class="text-xl font-semibold mb-4">IoT Integration</h3>
+                            <ul class="space-y-2 text-sm">
+                                <li>• Remote monitoring</li>
+                                <li>• Mobile app control</li>
+                                <li>• Data analytics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Case Studies -->
+        <div class="slide hidden">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">Success Stories</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-800">Coastal Community Project</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-700">• Population served: 5,000</p>
+                            <p class="text-gray-700">• Daily production: 25,000 L</p>
+                            <p class="text-gray-700">• Cost savings: 60%</p>
+                            <div class="mt-4 text-sm text-gray-600">
+                                "Transformed our water accessibility completely" - Community Leader
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-purple-800">Industrial Application</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-700">• Factory water supply</p>
+                            <p class="text-gray-700">• ROI achieved: 18 months</p>
+                            <p class="text-gray-700">• Energy saved: 75%</p>
+                            <div class="mt-4 text-sm text-gray-600">
+                                "Significant impact on our sustainability goals" - Plant Manager
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Future Developments -->
+        <div class="slide hidden">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">Future Developments</h2>
+                <div class="space-y-6">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl opacity-10"></div>
+                        <div class="relative p-6">
+                            <h3 class="text-xl font-semibold mb-4 text-gray-800">Upcoming Features</h3>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="bg-white rounded-lg p-4 shadow-sm">
+                                    <h4 class="font-semibold text-purple-800">AI Integration</h4>
+                                    <p class="text-sm text-gray-600 mt-2">Advanced optimization algorithms</p>
+                                </div>
+                                <div class="bg-white rounded-lg p-4 shadow-sm">
+                                    <h4 class="font-semibold text-blue-800">Modular Design</h4>
+                                    <p class="text-sm text-gray-600 mt-2">Scalable system architecture</p>
+                                </div>
+                                <div class="bg-white rounded-lg p-4 shadow-sm">
+                                    <h4 class="font-semibold text-indigo-800">Smart Grid</h4>
+                                    <p class="text-sm text-gray-600 mt-2">Energy management system</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Research Pipeline</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 bg-purple-600 rounded-full"></div>
+                                <p class="text-gray-700">Enhanced thermal materials (Q4 2024)</p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 bg-blue-600 rounded-full"></div>
+                                <p class="text-gray-700">Automated cleaning system (Q2 2025)</p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 bg-indigo-600 rounded-full"></div>
+                                <p class="text-gray-700">Hybrid energy storage (Q3 2025)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Call to Action -->
+        <div class="slide hidden">
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-12 text-center">
+                <h2 class="text-4xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-transparent bg-clip-text">Join the Revolution</h2>
+                <p class="text-xl text-gray-600 mb-8">Be part of the sustainable water solution</p>
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl">
+                        <h3 class="font-semibold text-purple-800">Start Small</h3>
+                        <p class="text-sm text-gray-600 mt-2">Pilot project implementation</p>
+                    </div>
+                    <div class="p-4 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl">
+                        <h3 class="font-semibold text-blue-800">Scale Up</h3>
+                        <p class="text-sm text-gray-600 mt-2">Expand your installation</p>
+                    </div>
+                    <div class="p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
+                        <h3 class="font-semibold text-green-800">Transform</h3>
+                        <p class="text-sm text-gray-600 mt-2">Full system integration</p>
+                    </div>
+                </div>
+                <div class="flex justify-center space-x-4">
+                    <a href="/contact" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:shadow-lg transition-all">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                        Schedule Consultation
+                    </a>
+                    <a href="/documentation" class="inline-flex items-center px-6 py-3 bg-white text-gray-700 rounded-lg hover:shadow-lg transition-all border border-gray-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                        View Documentation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentSlide = 1;
+    const totalSlides = 15;
+
+    function updateSlideCounter() {
+        document.getElementById('slideCounter').textContent = `${currentSlide}/${totalSlides}`;
+    }
+
+    function showSlide(slideNumber) {
+        document.querySelectorAll('.slide').forEach((slide, index) => {
+            if (index + 1 === slideNumber) {
+                slide.classList.remove('hidden');
+                slide.classList.add('active');
+            } else {
+                slide.classList.add('hidden');
+                slide.classList.remove('active');
+            }
+        });
+        updateSlideCounter();
+    }
+
+    function nextSlide() {
+        if (currentSlide < totalSlides) {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+    }
+
+    function previousSlide() {
+        if (currentSlide > 1) {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'Space') {
+            nextSlide();
+        } else if (e.key === 'ArrowLeft') {
+            previousSlide();
+        }
+    });
+
+    // Touch navigation
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    document.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const swipeLength = touchEndX - touchStartX;
+        
+        if (Math.abs(swipeLength) > swipeThreshold) {
+            if (swipeLength > 0) {
+                previousSlide();
+            } else {
+                nextSlide();
+            }
+        }
+    }
+</script>
+{% endblock %} 

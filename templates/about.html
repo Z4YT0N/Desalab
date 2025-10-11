@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}About - Solar Desalination Simulator{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <!-- Hero Section -->
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+        <div class="relative h-96">
+            <img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80" alt="Solar panels">
+            <div class="absolute inset-0 bg-indigo-600 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-transparent to-black/50"></div>
+            <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+                <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">About DesaLab</h1>
+                <p class="mt-6 max-w-3xl text-xl text-gray-100">
+                    Advancing solar desalination research through simulation technology.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Team Section -->
+    <div class="bg-white shadow rounded-lg mt-8 p-8">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Our Team</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="text-center">
+                    <div class="relative">
+                        <div class="w-32 h-32 bg-indigo-100 rounded-full mx-auto flex items-center justify-center">
+                            <span class="text-4xl">👩‍💻</span>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="text-lg font-medium text-gray-900">Radwa Mohamed El-Esawy</h3>
+                        <p class="text-sm text-gray-500">CCE Student</p>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="text-center">
+                    <div class="relative">
+                        <div class="w-32 h-32 bg-indigo-100 rounded-full mx-auto flex items-center justify-center">
+                            <span class="text-4xl">👩‍💻</span>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="text-lg font-medium text-gray-900">Aya Mahmoud El-Sawahly</h3>
+                        <p class="text-sm text-gray-500">CCE Student</p>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="text-center">
+                    <div class="relative">
+                        <div class="w-32 h-32 bg-indigo-100 rounded-full mx-auto flex items-center justify-center">
+                            <span class="text-4xl">👩‍💻</span>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="text-lg font-medium text-gray-900">Eman El-Sherbiny Abdallah</h3>
+                        <p class="text-sm text-gray-500">CCE Student</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <!-- Mission Section -->
+    <div class="bg-white shadow rounded-lg mt-8 p-8">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Our Mission</h2>
+            <p class="text-lg text-gray-600 mb-8">
+                At Water Desalantion, we're committed to advancing sustainable water solutions through innovative solar desalination technology. 
+                Our mission is to provide researchers and engineers with powerful tools to optimize their solar desalination systems 
+                and contribute to solving global water scarcity challenges.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="text-center">
+                    <div class="text-4xl mb-4">🌍</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Sustainability</h3>
+                    <p class="text-gray-600">Promoting eco-friendly water treatment solutions</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl mb-4">🔬</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Innovation</h3>
+                    <p class="text-gray-600">Advancing research through cutting-edge simulation</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl mb-4">🤝</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Collaboration</h3>
+                    <p class="text-gray-600">Building a community of researchers and engineers</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technology Section -->
+    <div class="bg-white shadow rounded-lg mt-8 p-8">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Our Technology</h2>
+            <div class="space-y-6 text-gray-600">
+                <p>
+                    The Water Desalantion simulator combines advanced mathematical modeling with an intuitive user interface to provide 
+                    accurate simulations of solar desalination processes. Our platform features:
+                </p>
+                <ul class="list-disc list-inside space-y-3 ml-4">
+                    <li>Precise calculations of mass flux and efficiency</li>
+                    <li>Support for multiple absorber geometries</li>
+                    <li>Real-time data visualization</li>
+                    <li>Comprehensive analysis tools</li>
+                    <li>User-friendly interface</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  
+</div>
+{% endblock %} 
